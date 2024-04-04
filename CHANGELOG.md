@@ -9,3 +9,7 @@ All notable changes to `openpanel-laravel` will be documented in this file
 ## 1.1.0 - 2024-04-04
 
 - added profile/user tracking
+
+## 1.2.0 - 2024-04-04
+
+- added increment/decrement profile property tracking
