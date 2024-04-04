@@ -9,7 +9,7 @@ Simple Laravel provider for [Openpanel](https://openpanel.dev/) event tracking.
 You can install the package via composer:
 
 ```bash
-composer require tbleckert/openpanel-laravel
+composer require bleckert/openpanel-laravel
 ```
 
 ## Setup
