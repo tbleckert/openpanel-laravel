@@ -8,7 +8,7 @@ class Openpanel extends HttpClient
 {
     public ?string $profileId = null;
 
-    protected function getProfileId(array $options = []): string
+    protected function getProfileId(array $options = []): ?string
     {
         return match (true) {
             isset($options['profileId']) => $options['profileId'],
@@ -55,19 +55,37 @@ class Openpanel extends HttpClient
         ]);
     }
 
+    /**
+     * @throws MissingProfileIdException
+     */
     public function increment(string $property, int $value = 1, array $options = []): void
     {
+        $profileId = $this->getProfileId($options);
+
+        if (!$profileId) {
+            throw new MissingProfileIdException;
+        }
+
         $this->post('profile/increment', [
-            'profileId' => $this->getProfileId($options),
+            'profileId' => $profileId,
             'property' => $property,
             'value' => $value,
         ]);
     }
 
+    /**
+     * @throws MissingProfileIdException
+     */
     public function decrement(string $property, int $value = 1, array $options = []): void
     {
+        $profileId = $this->getProfileId($options);
+
+        if (!$profileId) {
+            throw new MissingProfileIdException;
+        }
+
         $this->post('profile/decrement', [
-            'profileId' => $this->getProfileId($options),
+            'profileId' => $profileId,
             'property' => $property,
             'value' => $value,
         ]);
