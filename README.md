@@ -1,6 +1,6 @@
 # Openpanel for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/tbleckert/openpanel-laravel.svg?style=flat-square)](https://packagist.org/packages/tbleckert/openpanel-laravel)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/bleckert/openpanel-laravel.svg?style=flat-square)](https://packagist.org/packages/bleckert/openpanel-laravel)
 
 Simple Laravel provider for [Openpanel](https://openpanel.dev/) event tracking.
 
