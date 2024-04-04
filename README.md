@@ -12,15 +12,48 @@ You can install the package via composer:
 composer require tbleckert/openpanel-laravel
 ```
 
+## Setup
+
+Grab your Openpanel ID and secret by navigating to Settings -> Projects and create a client using typ "Other". You'll then recieve an ID and secret.
+
+Add the following to your `.env` file:
+
+```bash
+OPENPANEL_CLIENT_ID=your-id
+OPENPANEL_CLIENT_SECRET=your-secret
+```
+
+If you self-host Openpanel, you can set the `OPENPANEL_URL` variable to your Openpanel URL.
+
+```bash
+OPENPANEL_URL=https://your-openpanel-url.com
+```
+
 ## Usage
 
 ```php
 use Bleckert\OpenpanelLaravel\Openpanel;
 
-Openpanel::event(
+$openpanel = app(Openpanel::class);
+
+$openpanel->event(
     name: 'User registered',
     properties: ['user_id' => 1],
 );
+```
+
+## Run in background
+
+By default, Openpanel requests are sent synchronously. If you want to send the requests in the background, you can set `OPENPANEL_QUEUE_CONNECTION` in your env file.
+
+```bash
+OPENPANEL_QUEUE_CONNECTION=redis
+```
+
+Optionally, you can set the queue name:
+
+```bash
+OPENPANEL_QUEUE_NAME=your-queue-name
 ```
 
 ### Changelog
