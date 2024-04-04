@@ -36,9 +36,19 @@ use Bleckert\OpenpanelLaravel\Openpanel;
 
 $openpanel = app(Openpanel::class);
 
+// Identify user
+$openpanel->setProfileId(1);
+
+// Update user profile
+$openpanel->setProfile(
+    id: 1,
+    firstName: 'John Doe',
+    // ...
+);
+
+// Track event
 $openpanel->event(
     name: 'User registered',
-    properties: ['user_id' => 1],
 );
 ```
 
