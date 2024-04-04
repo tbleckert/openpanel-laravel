@@ -8,6 +8,15 @@ class Openpanel extends HttpClient
 {
     public ?string $profileId = null;
 
+    protected function getProfileId(array $options = []): string
+    {
+        return match (true) {
+            isset($options['profileId']) => $options['profileId'],
+            isset($options['userId']) => $options['userId'],
+            default => $this->profileId,
+        };
+    }
+
     public function setProfileId(string|int $id): void
     {
         $this->profileId = (string) $id;
@@ -36,17 +45,31 @@ class Openpanel extends HttpClient
     public function event(string $name, array $properties = [], ?string $timestamp = null): void
     {
         $timestamp = $timestamp ?? Carbon::now()->toIso8601String();
-        $profileId = match (true) {
-            isset($properties['profileId']) => $properties['profileId'],
-            isset($properties['userId']) => $properties['userId'],
-            default => $this->profileId,
-        };
+        $profileId = $this->getProfileId($properties);
 
         $this->post('event', [
             'name' => $name,
             'properties' => $properties,
             'timestamp' => $timestamp,
             'profileId' => $profileId,
+        ]);
+    }
+
+    public function increment(string $property, int $value = 1, array $options = []): void
+    {
+        $this->post('profile/increment', [
+            'profileId' => $this->getProfileId($options),
+            'property' => $property,
+            'value' => $value,
+        ]);
+    }
+
+    public function decrement(string $property, int $value = 1, array $options = []): void
+    {
+        $this->post('profile/decrement', [
+            'profileId' => $this->getProfileId($options),
+            'property' => $property,
+            'value' => $value,
         ]);
     }
 }
