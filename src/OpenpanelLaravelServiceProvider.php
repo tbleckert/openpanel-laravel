@@ -14,7 +14,7 @@ class OpenpanelLaravelServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('openpanel.php'),
-            ], 'config');
+            ], 'openpanel-config');
         }
     }
 
