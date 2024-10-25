@@ -8,6 +8,14 @@ class Openpanel extends HttpClient
 {
     public ?string $profileId = null;
 
+    public function track(string $type, array $payload): void
+    {
+        $this->post('track', [
+            'type' => $type,
+            'payload' => $payload,
+        ]);
+    }
+
     protected function getProfileId(array $options = []): ?string
     {
         return match (true) {
@@ -22,7 +30,7 @@ class Openpanel extends HttpClient
         $this->profileId = (string) $id;
     }
 
-    public function setProfile(
+    public function identify(
         string|int $id,
         ?string $firstName = null,
         ?string $lastName = null,
@@ -32,7 +40,7 @@ class Openpanel extends HttpClient
     ): void {
         $this->setProfileId($id);
 
-        $this->post('profile', [
+        $this->track('identify', [
             'profileId' => $this->profileId,
             'firstName' => $firstName,
             'lastName' => $lastName,
@@ -47,7 +55,7 @@ class Openpanel extends HttpClient
         $timestamp = $timestamp ?? Carbon::now()->toIso8601String();
         $profileId = $this->getProfileId($properties);
 
-        $this->post('event', [
+        $this->track('track', [
             'name' => $name,
             'properties' => $properties,
             'timestamp' => $timestamp,
@@ -66,7 +74,7 @@ class Openpanel extends HttpClient
             throw new MissingProfileIdException;
         }
 
-        $this->post('profile/increment', [
+        $this->track('increment', [
             'profileId' => $profileId,
             'property' => $property,
             'value' => $value,
@@ -84,7 +92,7 @@ class Openpanel extends HttpClient
             throw new MissingProfileIdException;
         }
 
-        $this->post('profile/decrement', [
+        $this->track('decrement', [
             'profileId' => $profileId,
             'property' => $property,
             'value' => $value,
