@@ -41,7 +41,10 @@
         "laravel": {
             "providers": [
                 "Bleckert\\OpenpanelLaravel\\OpenpanelLaravelServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Openpanel": "Bleckert\\OpenpanelLaravel\\Facades\\Openpanel"
+            }
         }
     }
 }
