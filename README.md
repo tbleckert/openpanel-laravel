@@ -52,20 +52,6 @@ $openpanel->event(
 );
 ```
 
-## Run in background
-
-By default, Openpanel requests are sent synchronously. If you want to send the requests in the background, you can set `OPENPANEL_QUEUE_CONNECTION` in your env file.
-
-```bash
-OPENPANEL_QUEUE_CONNECTION=redis
-```
-
-Optionally, you can set the queue name:
-
-```bash
-OPENPANEL_QUEUE_NAME=your-queue-name
-```
-
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

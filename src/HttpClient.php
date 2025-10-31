@@ -8,7 +8,7 @@ class HttpClient
 {
     public function post(string $path, array $data): void
     {
-        dispatch(function () use ($path, $data) {
+        app()->terminating(function () use ($path, $data) {
             $url = config('openpanel.url').'/'.$path;
             $clientId = config('openpanel.client_id');
             $clientSecret = config('openpanel.client_secret');
@@ -21,8 +21,6 @@ class HttpClient
                     'openpanel-client-secret' => $clientSecret,
                 ],
             ]);
-        })
-            ->onConnection(config('openpanel.queue_connection'))
-            ->onQueue(config('openpanel.queue'));
+        });
     }
 }
