@@ -31,14 +31,14 @@ class Openpanel extends HttpClient
     }
 
     public function identify(
-        string|int $id,
+        string|int $profileId,
         ?string $firstName = null,
         ?string $lastName = null,
         ?string $email = null,
         ?string $avatar = null,
         ?array $properties = null,
     ): void {
-        $this->setProfileId($id);
+        $this->setProfileId($profileId);
 
         $this->track('identify', [
             'profileId' => $this->profileId,
