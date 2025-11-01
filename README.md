@@ -36,20 +36,28 @@ use Bleckert\OpenpanelLaravel\Openpanel;
 
 $openpanel = app(Openpanel::class);
 
-// Identify user
+// Set profile ID that will be used for all events as the `profileId` property.
 $openpanel->setProfileId(1);
 
 // Update user profile
-$openpanel->setProfile(
-    id: 1,
+$openpanel->identify(
+    profileId: 1,
     firstName: 'John Doe',
+    lastName: 'Doe',
+    email: 'joe@doe.com',
     // ...
 );
 
 // Track event
-$openpanel->event(
+$openpanel->track(
     name: 'User registered',
 );
+
+// Increment property
+$openpanel->increment('visits');
+
+// Decrement property
+$openpanel->decrement('visits');
 ```
 
 ### Changelog
