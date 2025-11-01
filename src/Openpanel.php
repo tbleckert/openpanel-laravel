@@ -8,7 +8,7 @@ class Openpanel extends HttpClient
 {
     public ?string $profileId = null;
 
-    public function track(string $type, array $payload): void
+    public function trackEvent(string $type, array $payload): void
     {
         $this->post('track', [
             'type' => $type,
@@ -40,7 +40,7 @@ class Openpanel extends HttpClient
     ): void {
         $this->setProfileId($profileId);
 
-        $this->track('identify', [
+        $this->trackEvent('identify', [
             'profileId' => $this->profileId,
             'firstName' => $firstName,
             'lastName' => $lastName,
@@ -50,17 +50,25 @@ class Openpanel extends HttpClient
         ]);
     }
 
-    public function event(string $name, array $properties = [], ?string $timestamp = null): void
+    public function track(string $name, array $properties = [], ?string $timestamp = null): void
     {
         $timestamp = $timestamp ?? Carbon::now()->toIso8601String();
         $profileId = $this->getProfileId($properties);
 
-        $this->track('track', [
+        $this->trackEvent('track', [
             'name' => $name,
             'properties' => $properties,
             'timestamp' => $timestamp,
             'profileId' => $profileId,
         ]);
+    }
+
+    /**
+     * @deprecated Use track() instead
+     */
+    public function event(string $name, array $properties = [], ?string $timestamp = null): void
+    {
+        $this->track($name, $properties, $timestamp);
     }
 
     /**
@@ -74,7 +82,7 @@ class Openpanel extends HttpClient
             throw new MissingProfileIdException;
         }
 
-        $this->track('increment', [
+        $this->trackEvent('increment', [
             'profileId' => $profileId,
             'property' => $property,
             'value' => $value,
@@ -92,7 +100,7 @@ class Openpanel extends HttpClient
             throw new MissingProfileIdException;
         }
 
-        $this->track('decrement', [
+        $this->trackEvent('decrement', [
             'profileId' => $profileId,
             'property' => $property,
             'value' => $value,
