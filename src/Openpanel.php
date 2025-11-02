@@ -50,7 +50,7 @@ class Openpanel extends HttpClient
         ]);
     }
 
-    public function track(string $name, array $properties = [], ?string $timestamp = null): void
+    public function track(string $name, ?array $properties = [], ?string $timestamp = null): void
     {
         $timestamp = $timestamp ?? Carbon::now()->toIso8601String();
         $profileId = $this->getProfileId($properties);
@@ -66,7 +66,7 @@ class Openpanel extends HttpClient
     /**
      * @deprecated Use track() instead
      */
-    public function event(string $name, array $properties = [], ?string $timestamp = null): void
+    public function event(string $name, ?array $properties = [], ?string $timestamp = null): void
     {
         $this->track($name, $properties, $timestamp);
     }
