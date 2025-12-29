@@ -5,6 +5,7 @@ namespace Bleckert\OpenpanelLaravel\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static void trackEvent(string $type, array $payload)
  * @method static void track(string $name, ?array $properties = [], ?string $timestamp = null)
  * @method static void setProfileId(string|int $id)
  * @method static void identify(string|int $id, ?string $firstName = null, ?string $lastName = null, ?string $email = null, ?string $avatar = null, ?array $properties = null)
